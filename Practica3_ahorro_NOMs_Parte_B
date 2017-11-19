@@ -1,0 +1,142 @@
+% Descripción del programa:
+disp(' ')
+disp('Programa para el cálculo de Niveles de Iluminación y Eficiencia Energetica.')
+disp('(Parte B)')
+disp('Conforme a  la NOM-025-STP-2008 y NOM-007-ENER-2004. ')
+disp(' ')
+disp('Por Ricardo Huerta Jiménez.')
+disp(' ')
+disp('MATERIA: AHORRO Y USO EFICIENTE DE LA ENERGÍA ELÉCTRICA.')
+disp(' ')
+% Instrucciones de uso:
+disp('INSTRUCCIONES DE USO')
+disp('Para usar este programa el usuario deberá tener los datos en la [unidad del S.I.] que se solicite teclear.')
+disp(' ')
+disp(' ')
+% El programa solicitará los datos al usuario:
+disp('DATOS:')
+disp(' ')
+disp('A continuación el usuario deberá considerar cada color en muros con un número en el momento que se le solicite:')
+Color_1=input('Introduce el nombre del "color 1":\n','s');
+Color_2=input('Introduce el nombre del "color 2":\n','s');
+Color_3=input('Introduce el nombre del "color 3":\n','s');
+fprintf('Los colores en los muros son los siguientes:\n 1)%s\n 2)%s\n 3)%s\n',Color_1,Color_2,Color_3);
+disp(' ')
+disp(' ')
+% Áreas en muros:
+Area_Muro_Frontal=input('¿Qué Área [m^2] tiene Todo el muro Frontal?\n');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro Frontal?\n',Color_1);
+A_Color_1a=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro Frontal?\n',Color_2);
+A_Color_2a=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro Frontal?\n',Color_3);
+A_Color_3a=input('');
+A_Ventana_a=input('¿Qué Área tienen las Ventanas?\n (En caso de no haber teclee cero).\n');
+disp(' ')
+Area_Muro_Fondo=input('¿Qué Área [m^2] tiene Todo el muro del Fondo?\n');
+fprintf('Qué Área [m^2] tiene el Color %s del muro de Fondo?\n',Color_1);
+A_Color_1b=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de Fondo?\n',Color_2);
+A_Color_2b=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de Fondo?\n',Color_3);
+A_Color_3b=input('');
+A_Ventana_b=input('¿Qué Área tienen las Ventanas?\n (En caso de no haber teclee cero).\n');
+disp(' ')
+Area_Muro_Izq=input('¿Qué Área [m^2] tiene Todo el muro del Lado Izquierdo?\n');
+fprintf('Qué Área [m^2] tiene el Color %s del muro de del Lado Izquierdo?\n',Color_1);
+A_Color_1c=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de del Lado Izquierdo?\n',Color_2);
+A_Color_2c=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de del Lado Izquierdo?\n',Color_3);
+A_Color_3c=input('');
+A_Ventana_c=input('¿Qué Área tienen las Ventanas?\n (En caso de no haber teclee cero).\n');
+disp(' ')
+Area_Muro_Der=input('¿Qué Área [m^2] tiene Todo el muro del Lado Derecho?\n');
+fprintf('Qué Área [m^2] tiene el Color %s del muro de del Lado Derecho?\n',Color_1);
+A_Color_1d=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de del Lado Derecho?\n',Color_2);
+A_Color_2d=input('');
+fprintf('¿Qué Área [m^2] tiene el Color %s del muro de del Lado Derecho?\n',Color_3);
+A_Color_3d=input('');
+A_Ventana_d=input('¿Qué Área tienen las Ventanas?\n (En caso de no haber teclee cero).\n');
+disp(' ')
+disp(' ')
+% Introducir matrices:
+disp('A continuación el programa solicitará al usuario las matrices con los valores medidos de ILUMINANCIA y LUMINANCIA en muros')
+disp(' ')
+fprintf('Introduce la matriz con los valores de ILUMINANCIA (E) para el color %s.\n',Color_1);
+Matriz_Iluminancias_C1=input('');
+fprintf('Introduce la matriz con los valores de LUMINANCIA (L) para el color %s.\n',Color_1);
+Matriz_Luminancias_C1=input('');
+disp(' ')
+fprintf('Introduce la matriz con los valores de ILUMINANCIA (E) para el color %s.\n',Color_2);
+Matriz_Iluminancias_C2=input('');
+fprintf('Introduce la matriz con los valores de LUMINANCIA (L) para el color %s.\n',Color_2);
+Matriz_Luminancias_C2=input('');
+disp(' ')
+fprintf('Introduce la matriz con los valores de ILUMINANCIA (E) para el color %s.\n',Color_3);
+Matriz_Iluminancias_C3=input('');
+fprintf('Introduce la matriz con los valores de LUMINANCIA (L) para el color %s.\n',Color_3);
+Matriz_Luminancias_C3=input('');
+disp(' ')
+disp(' ')
+% Cálculo de Reflectancias promedio
+Iluminancia_prom_C1=mean(mean(Matriz_Iluminancias_C1));
+Luminancia_prom_C1=mean(mean(Matriz_Luminancias_C1));
+Reflectancia_prom_C1=((Luminancia_prom_C1/Iluminancia_prom_C1)*100);
+fprintf('La Reflectancia promedio en muros del color %s es de %2.3f por ciento. \n',Color_1,Reflectancia_prom_C1);
+disp(' ')
+Iluminancia_prom_C2=mean(mean(Matriz_Iluminancias_C2));
+Luminancia_prom_C2=mean(mean(Matriz_Luminancias_C2));
+Reflectancia_prom_C2=((Luminancia_prom_C2/Iluminancia_prom_C2)*100);
+fprintf('La Reflectancia promedio en muros del color %s es de %2.3f por ciento. \n',Color_2,Reflectancia_prom_C2);
+disp(' ')
+Iluminancia_prom_C3=mean(mean(Matriz_Iluminancias_C3));
+Luminancia_prom_C3=mean(mean(Matriz_Luminancias_C3));
+Reflectancia_prom_C3=((Luminancia_prom_C3/Iluminancia_prom_C3)*100);
+fprintf('La Reflectancia promedio en muros del color %s es de %2.3f por ciento. \n',Color_3,Reflectancia_prom_C3);
+
+disp(' ')
+Reflectancia_vidrio=10;
+disp('La Reflectancia promedio en muros del vidrio es 10 por ciento.')
+disp(' ')
+disp(' ')
+% Reflectancias en muros:
+Reflectancia_Muro_Frontal_1=(A_Color_1a*Reflectancia_prom_C1)+(A_Color_2a*Reflectancia_prom_C2)+(A_Color_3a*Reflectancia_prom_C3)+(A_Ventana_a*Reflectancia_vidrio);
+Reflectancia_Muro_Frontal_2=(A_Color_1a+A_Color_2a+A_Color_3a+A_Ventana_a);
+Reflectancia_Muro_Frontal=(Reflectancia_Muro_Frontal_1/Reflectancia_Muro_Frontal_2);
+fprintf('La Reflectancia en el muro Frontal es de %2.3f por ciento. \n',Reflectancia_Muro_Frontal);
+disp(' ')
+Reflectancia_Muro_Fondo_1=(A_Color_1b*Reflectancia_prom_C1)+(A_Color_2b*Reflectancia_prom_C2)+(A_Color_3b*Reflectancia_prom_C3)+(A_Ventana_b*Reflectancia_vidrio);
+Reflectancia_Muro_Fondo_2=(A_Color_1b+A_Color_2b+A_Color_3b+A_Ventana_b);
+Reflectancia_Muro_Fondo=(Reflectancia_Muro_Fondo_1/Reflectancia_Muro_Fondo_2);
+fprintf('La Reflectancia en el muro de Fondo es de %2.3f por ciento. \n',Reflectancia_Muro_Fondo);
+disp(' ')
+Reflectancia_Muro_Izq_1=(A_Color_1c*Reflectancia_prom_C1)+(A_Color_2c*Reflectancia_prom_C2)+(A_Color_3c*Reflectancia_prom_C3)+(A_Ventana_c*Reflectancia_vidrio);
+Reflectancia_Muro_Izq_2=(A_Color_1c+A_Color_2c+A_Color_3c+A_Ventana_c);
+Reflectancia_Muro_Izq=(Reflectancia_Muro_Izq_1/Reflectancia_Muro_Izq_2);
+fprintf('La Reflectancia en el muro Izquierdo es de %2.3f por ciento. \n',Reflectancia_Muro_Izq);
+disp(' ')
+Reflectancia_Muro_Der_1=(A_Color_1d*Reflectancia_prom_C1)+(A_Color_2d*Reflectancia_prom_C2)+(A_Color_3d*Reflectancia_prom_C3)+(A_Ventana_d*Reflectancia_vidrio);
+Reflectancia_Muro_Der_2=(A_Color_1d+A_Color_2d+A_Color_3d+A_Ventana_d);
+Reflectancia_Muro_Der=(Reflectancia_Muro_Der_1/Reflectancia_Muro_Der_2);
+fprintf('La Reflectancia en el muro Derecho es de %2.3f por ciento. \n',Reflectancia_Muro_Der);
+disp(' ')
+disp(' ')
+% Reflectancia Total en Muros
+disp(' ')
+Reflectancia_Total_Muros_1=(Reflectancia_Muro_Frontal*Area_Muro_Frontal)+(Reflectancia_Muro_Fondo*Area_Muro_Fondo)+(Reflectancia_Muro_Izq*Area_Muro_Izq)+(Reflectancia_Muro_Der*Area_Muro_Der);
+Reflectancia_Total_Muros_2=(Area_Muro_Frontal+Area_Muro_Fondo+Area_Muro_Izq+Area_Muro_Der);
+Reflectancia_Total_Muros=Reflectancia_Total_Muros_1/Reflectancia_Total_Muros_2;
+fprintf('La Reflectancia Total en Muros es de %2.3f por ciento. \n',Reflectancia_Total_Muros);
+if Reflectancia_Total_Muros<=60;
+    fprintf('La Reflectancia en Muros es de %2.3f por ciento y es menor o igual al valor máximo permisible de reflexión 60 por ciento. \n',Reflectancia_Total_Muros);
+    disp('Por lo tanto el valor de la Reflectancia del Plano de Trabajo SI cumple con la conformidad de la Tabla 2 de la NOM-025-STP-2008.')
+else Reflectancia_Total_Muros>60;
+    fprintf('La Reflectancia en Muros es de %2.3f por ciento y es mayor al valor máximo permisibile de reflexión 60 por ciento. \n',Reflectancia_Total_Muros);
+    disp('Por lo tanto el valor de la Reflectancia del Plano de Trabajo NO cumple con la conformidad de la Tabla 2 de la NOM-025-STP-2008.')
+end 
+disp(' ')
+disp(' ')
+disp('Fin de la práctica 3.')
+disp('Gracias por su preferencia.');
