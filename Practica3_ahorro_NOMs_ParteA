@@ -1,0 +1,108 @@
+% Descripción del programa:
+clear
+clc
+disp(' ')
+disp('Programa para el cálculo de Niveles de Iluminación y Eficiencia Energetica.')
+disp('(Parte A)')
+disp('Conforme a  la NOM-025-STP-2008 y NOM-007-ENER-2004. ')
+disp(' ')
+disp('Por Ricardo Huerta Jiménez.')
+disp(' ')
+disp('MATERIA: AHORRO Y USO EFICIENTE DE LA ENERGÍA ELÉCTRICA.')
+disp(' ')
+% Instrucciones de uso:
+disp('INSTRUCCIONES DE USO')
+disp('Para usar este programa el usuario deberá tener los datos en la [unidad del S.I.] que se solicite teclear.')
+disp(' ')
+disp(' ')
+% El programa solicitará los datos al usuario:
+disp('DATOS:')
+disp(' ')
+Mts_Muro_Frontal_X=input('¿Cuánto mide del Largo [m] el muro Frontal (X)?\n');
+Mts_Muro_Lateral_Y=input('¿Cuánto mide de Ancho [m] el muro Lateral (Y)?\n');
+Mts_Muro_Altura_H=input('¿Cuánto mide de Alto [m] el Cuarto (H)?\n');
+disp(' ')
+Pot_Sist_Ilum=input('¿Cuál es la Potencia Total [W] del Sistema de Iluminación (Incluye Lámparas y Balastros)?\n');
+disp(' ')
+Nivel_Min_Ilum=input('¿Cuál es el Nivel Mínimo de Iluminación [lux] permitido para su área de trabajo según la "Tabla 1 de la NOM-025-STP"?\n');
+disp(' ')
+DPEA_Max=input('¿Cuál es el Nivel Máximo de DPEA [W/m^2] permitido para su área de trabajo según la "Tabla 1 de la NOM-007-ENER-2004"?\n');
+disp(' ')
+% El programa procederá a realizar los calculos:
+IC=((Mts_Muro_Frontal_X*Mts_Muro_Lateral_Y)/((Mts_Muro_Altura_H)*(Mts_Muro_Frontal_X+Mts_Muro_Lateral_Y)))
+if (IC<1);
+    Num_Zonas_evaluar=4;
+    Num_zonas_ev_2=6;
+    fprintf('Deberás evaluar el plano de trabajo en %2.0f zonas como mínimo y en caso de que los puntos de medición coincidan con los puntos focales de las luminarias deberás trabajar sobre %2.0f zonas. \n',Num_Zonas_evaluar, Num_zonas_ev_2);
+elseif (1<=IC & IC<2);
+    Num_Zonas_evaluar=9;
+    Num_zonas_ev_2=12;
+    fprintf('Deberás evaluar el plano de trabajo en %2.0f zonas como mínimo y en caso de que los puntos de medición coincidan con los puntos focales de las luminarias deberás trabajar sobre %2.0f zonas. \n',Num_Zonas_evaluar, Num_zonas_ev_2);
+elseif (2<=IC & IC<3);
+    Num_Zonas_evaluar=16;
+    Num_zonas_ev_2=20;
+    fprintf('Deberás evaluar el plano de trabajo en %2.0f zonas como mínimo y en caso de que los puntos de medición coincidan con los puntos focales de las luminarias deberás trabajar sobre %2.0f zonas. \n',Num_Zonas_evaluar, Num_zonas_ev_2);
+else (3<=IC);
+    Num_Zonas_evaluar=25;
+    Num_zonas_ev_2=30;
+    fprintf('Deberás evaluar el plano de trabajo en %2.0f zonas como mínimo y en caso de que los puntos de medición coincidan con los puntos focales de las luminarias deberás trabajar sobre %2.0f zonas. \n',Num_Zonas_evaluar, Num_zonas_ev_2);
+end
+opcion=input('¿Existen puntos de medición que coincidan con los puntos focales de las luminarias?\n Teclee el número de la opción correcta: \n 1) NO\n 2) SI\n');
+if opcion==1
+    zonas=Num_Zonas_evaluar;
+else opcion==2
+    zonas=Num_zonas_ev_2;
+end
+disp(' ')
+fprintf('Deberás realizar mediciones de ILUMINANCIA (E) y mediciones de LUMINANCIA (L) en el punto central de cada una de las %2.0f zonas. \n',zonas);
+disp(' ')
+disp('El programa pedirá al usuario que introduzca los valores medidos de Iluminancia (E) y Luminancia (L) ')
+disp('y le devolverá las matrices con dichos valores. ')
+disp('NOTA: El usuario deberá introducir dichos valores en forma de matriz')
+disp('EJEMPLO (Utilizar el siguiente formato):')
+disp('[E_11, E12, E13; E_21, E22, E23; E_31, E_32, E_33]')
+disp(' ')
+Matriz_Iluminancias=input('Introduce la matriz con los valores de ILUMINANCIA (E) para la zonas evaluadas:\n')
+Matriz_Luminancias=input('Introduce la matriz con los valores de LUMINANCIA (L) para la zonas evaluadas:\n')
+Matriz_reflectancias=((Matriz_Luminancias)./(Matriz_Iluminancias))*100
+disp(' ')
+Iluminancia_prom=mean(mean(Matriz_Iluminancias));
+disp(' ')
+fprintf('La Iluminancia promedio del Plano de Trabajo es de %2.3f [lux].\n',Iluminancia_prom)
+disp(' ')
+if Iluminancia_prom>=Nivel_Min_Ilum;
+    fprintf('El Nivel de Iluminación del Plano de Trabajo es de %2.3f [lux] y es mayor o igual al nivel minimo de Iluminación %2.3f [lux]. \n',Iluminancia_prom, Nivel_Min_Ilum);
+    disp('Por lo tanto el Nivel de Iluminación del Plano de Trabajo SI cumple con la conformidad de la Tabla 1 de la NOM-025-STP-2008.')
+else Iluminancia_prom<Nivel_Min_Ilum;
+    fprintf('El Nivel de Iluminación del Plano de Trabajo es de %2.3f [lux] y es menor al nivel minimo de Iluminación %2.3f [lux]. \n',Iluminancia_prom, Nivel_Min_Ilum);
+    disp('Por lo tanto el Nivel de Iluminación del Plano de Trabajo NO cumple con la conformidad de la Tabla 1 de la NOM-025-STP-2008.')
+end
+Luminancia_prom=mean(mean(Matriz_Luminancias));
+disp(' ')
+fprintf('La Luminancia promedio del Plano de Trabajo es de %4.3f [cd/m^2]. \n ',Luminancia_prom);
+disp(' ')
+Reflectancia_prom=((Luminancia_prom/Iluminancia_prom)*(100));
+fprintf('La Reflectancia promedio del Plano de Trabajo es de %4.3f por ciento. \n ',Reflectancia_prom);
+disp(' ')
+if Reflectancia_prom<=50;
+    fprintf('La Reflectancia del Plano de Trabajo es de %2.3f por ciento y es menor al valor máximo permisible de reflexión 50 por ciento. \n',Reflectancia_prom);
+    disp('Por lo tanto el valor de la Reflectancia del Plano de Trabajo SI cumple con la conformidad de la Tabla 2 de la NOM-025-STP-2008.')
+else Reflectancia_prom>50;
+    fprintf('La Reflectancia del Plano de Trabajo es de %2.3f por ciento y es mayor al valor máximo permisibile de reflexión 50 por ciento. \n',Reflectancia_prom);
+    disp('Por lo tanto el valor de la Reflectancia del Plano de Trabajo NO cumple con la conformidad de la Tabla 2 de la NOM-025-STP-2008.')
+end
+disp(' ')
+DPEA=((Pot_Sist_Ilum)/(Mts_Muro_Frontal_X*Mts_Muro_Lateral_Y));
+fprintf('El valor de DPEA del Plano de Trabajo es de %4.3f. \n ',DPEA);
+disp(' ')
+if DPEA<=DPEA_Max;
+     fprintf('El valor de DPEA es de %2.3f [W/m^2] y es menor o igual al valor máximo permisible %2.3f [W/m^2] por la Tabla 1 de la NOM-007-ENER-2004.\n ',DPEA,DPEA_Max)
+     disp('Por lo tanto el valor de DPEA SI cumple con la conformidad de la Tabla 1 de la NOM-025-STP-2008.')
+else DPEA>DPEA_Max;
+    fprintf('El valor de DPEA es de %2.3f [W/m^2] y es mayor al valor máximo permisible %2.3f [W/m^2] por la Tabla 1 de la NOM-007-ENER-2004.\n',DPEA,DPEA_Max)
+    disp('Por lo tanto el valor de DPEA NO cumple con la conformidad de la Tabla 1 de la NOM-025-STP-2008.')
+end
+disp(' ')
+disp(' ')
+disp('A continuación utilice la parte B del programa de la práctica 3.')
+disp('Gracias por su preferencia.');
